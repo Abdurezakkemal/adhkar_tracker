@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'screens/history_screen.dart';
 import 'screens/today_screen.dart';
 
@@ -14,7 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Adhkar Tracker',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        primaryColor: const Color(0xFF0F8D42),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF0F8D42),
+          secondary: const Color(0xFFD4A017),
+        ),
+        textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
         useMaterial3: true,
       ),
       home: const MainScreen(),

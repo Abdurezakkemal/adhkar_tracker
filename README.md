@@ -15,8 +15,8 @@ Adhkar Tracker is a simple and elegant Flutter application designed to help user
 - **Offline First**: The app uses a local JSON file for hadith data, making it fully functional without an internet connection.
 
 <p align="center">
-  <img src="image1.jpg" alt="Screenshot_20251123_202949.jpg" width="45%" />
-  <img src="image2.jpg" alt="Screenshot_20251123_203016.jpg" width="45%" />
+  <img src="Screenshot_20251123_202949.jpg" alt="Screenshot_20251123_202949.jpg" width="45%" />
+  <img src="Screenshot_20251123_203016.jpg" alt="Screenshot_20251123_203016.jpg" width="45%" />
   
  
 </p>

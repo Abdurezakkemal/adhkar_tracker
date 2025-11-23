@@ -6,8 +6,8 @@ class Hadith {
 
   factory Hadith.fromJson(Map<String, dynamic> json) {
     return Hadith(
-      arabicText: json['hadith_ar'] as String,
-      englishText: json['hadith_en'] as String,
+      arabicText: json['arabic'] as String,
+      englishText: json['translation'] as String,
     );
   }
 }

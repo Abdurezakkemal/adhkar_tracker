@@ -36,6 +36,8 @@ class _AdhkarCardState extends State<AdhkarCard> {
     final theme = Theme.of(context);
     return Card(
       margin: const EdgeInsets.all(16.0),
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

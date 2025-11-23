@@ -35,15 +35,25 @@ class _HistoryScreenState extends State<HistoryScreen> {
               ..sort((a, b) => b.compareTo(a));
 
             return ListView.builder(
+              padding: const EdgeInsets.all(8.0),
               itemCount: sortedDates.length,
               itemBuilder: (context, index) {
                 final date = sortedDates[index];
                 final count = counts[date];
-                return ListTile(
-                  title: Text(date),
-                  trailing: Text(
-                    '$count',
-                    style: const TextStyle(fontSize: 18),
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 8.0,
+                  ),
+                  child: ListTile(
+                    title: Text(date),
+                    trailing: Text(
+                      '$count',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 );
               },

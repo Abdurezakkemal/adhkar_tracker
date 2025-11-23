@@ -1,18 +1,25 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'dart:math';
+import 'package:flutter/services.dart';
 import '../models/hadith.dart';
 
 class HadithService {
-  static const String _url =
-      'https://api.hadithhub.com/v1/hadiths/random/?language=en';
+  List<Hadith>? _hadiths;
+
+  Future<void> _loadHadiths() async {
+    if (_hadiths == null) {
+      final jsonString = await rootBundle.loadString('assets/hadiths.json');
+      final List<dynamic> jsonList = jsonDecode(jsonString);
+      _hadiths = jsonList.map((json) => Hadith.fromJson(json)).toList();
+    }
+  }
 
   Future<Hadith> fetchHadith() async {
-    final response = await http.get(Uri.parse(_url));
-
-    if (response.statusCode == 200) {
-      return Hadith.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load hadith');
+    await _loadHadiths();
+    if (_hadiths == null || _hadiths!.isEmpty) {
+      throw Exception('Failed to load hadiths');
     }
+    final randomIndex = Random().nextInt(_hadiths!.length);
+    return _hadiths![randomIndex];
   }
 }

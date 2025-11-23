@@ -11,8 +11,9 @@ class TodayScreen extends StatefulWidget {
   State<TodayScreen> createState() => _TodayScreenState();
 }
 
-class _TodayScreenState extends State<TodayScreen> {
-  late Future<Hadith> _hadithFuture;
+class _TodayScreenState extends State<TodayScreen>
+    with AutomaticKeepAliveClientMixin {
+  Future<Hadith>? _hadithFuture;
   final HadithService _hadithService = HadithService();
   final StorageService _storageService = StorageService();
   int _count = 0;
@@ -20,8 +21,8 @@ class _TodayScreenState extends State<TodayScreen> {
   @override
   void initState() {
     super.initState();
-    _hadithFuture = _hadithService.fetchHadith();
     _loadCount();
+    _fetchNewHadith();
   }
 
   Future<void> _loadCount() async {
@@ -38,14 +39,27 @@ class _TodayScreenState extends State<TodayScreen> {
     });
   }
 
+  void _fetchNewHadith() {
+    setState(() {
+      _hadithFuture = _hadithService.fetchHadith();
+    });
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
     return Scaffold(
       appBar: AppBar(title: const Text('Today\'s Hadith')),
       body: Center(
         child: FutureBuilder<Hadith>(
           future: _hadithFuture,
           builder: (context, snapshot) {
+            if (_hadithFuture == null) {
+              return const Text('Tap the refresh button to get a hadith.');
+            }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
@@ -62,6 +76,10 @@ class _TodayScreenState extends State<TodayScreen> {
             }
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _fetchNewHadith,
+        child: const Icon(Icons.refresh),
       ),
     );
   }
